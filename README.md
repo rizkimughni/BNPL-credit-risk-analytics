@@ -1,120 +1,123 @@
+🇮🇩 [Versi Bahasa Indonesia](README.id.md)
+
 # Fintech Credit Risk Analytics for BNPL Services
 
-Analisis end-to-end risiko kredit pada layanan *Buy Now, Pay Later* (BNPL): mengidentifikasi pelanggan berisiko tinggi, menguji faktor pendorong gagal bayar secara statistik, dan menerjemahkan temuan menjadi rekomendasi bisnis yang dapat ditindaklanjuti.
+An end-to-end credit risk analysis of *Buy Now, Pay Later* (BNPL) customers: identifying high-risk customers, statistically testing the drivers of default, and translating the findings into actionable business recommendations.
 
 **Tools:** Python (Pandas, NumPy, SciPy, Scikit-learn, Matplotlib, Seaborn) · Power BI
 
 ---
 
-## Ringkasan Proyek
+## Project Overview
 
 | | |
 |---|---|
 | **Dataset** | [Kaggle: Buy Now, Pay Later (BNPL) Fintech ML Dataset](https://www.kaggle.com/datasets/shree0910/buy-now-and-pay-later-fintech-ml-dataset) |
-| **Cakupan data** | 10.345 pelanggan, 6 negara (Jerman, Inggris, Australia, Kanada, AS, India), periode 2023–2024 |
-| **Target** | `default_flag` (1 = gagal bayar, 0 = membayar tepat waktu) |
-| **Tingkat gagal bayar** | **39,05%** |
-| **Hasil** | 4 uji hipotesis, 6 segmen nilai pelanggan, dashboard Power BI, dan 4 rekomendasi bisnis |
+| **Data coverage** | 10,345 customers, 6 countries (Germany, UK, Australia, Canada, USA, India), 2023–2024 |
+| **Target** | `default_flag` (1 = defaulted, 0 = paid on time) |
+| **Default rate** | **39.05%** |
+| **Deliverables** | 4 hypothesis tests, 6 customer value segments, a Power BI dashboard, and 4 business recommendations |
 
-## Latar Belakang dan Masalah Bisnis
+## Background and Business Problem
 
-Pertumbuhan BNPL berjalan lebih cepat daripada pengendalian risikonya. Tanpa cara yang andal untuk memisahkan pelanggan berisiko dari pelanggan aman, penyedia layanan menetapkan limit tanpa menimbang rasio utang terhadap pendapatan, skor kredit, dan riwayat keterlambatan secara bersamaan. Akibatnya, tingkat gagal bayar tinggi dan tidak ada indikator peringatan dini sebelum kerugian terjadi.
+BNPL growth has outpaced risk controls. Without a reliable way to separate risky customers from safe ones, providers set credit limits without jointly weighing debt-to-income ratio, credit score, and repayment history. As a result, default rates are high and there is no early-warning indicator before losses occur.
 
-**Tujuan analisis:**
-1. Mengidentifikasi faktor utama pendorong gagal bayar.
-2. Mengelompokkan pelanggan berdasarkan profil risiko dan perilaku.
-3. Merekomendasikan strategi mitigasi risiko kredit.
+**Objectives:**
+1. Identify the key drivers of default among BNPL customers.
+2. Segment customers by credit profile and payment behavior.
+3. Recommend credit risk mitigation strategies.
 
-## Alur Analisis
+## Analysis Pipeline
 
-`Data Understanding` → `Data Cleaning` → `Feature Engineering` → `EDA` → `Hypothesis Testing` → `Customer Segmentation` → `Kesimpulan & Rekomendasi` → `Export`
+`Data Understanding` → `Data Cleaning` → `Feature Engineering` → `EDA` → `Hypothesis Testing` → `Customer Segmentation` → `Conclusions & Recommendations` → `Export`
 
-- **Data Cleaning**: konversi tipe data, validasi rentang logis, penanganan *outlier* dengan IQR capping.
-- **Feature Engineering**: `installment_income_ratio`, `monthly_installment`, `delay_category`, `credit_tier`, `age_group`, `is_employed`, `ever_delayed`, komponen tanggal transaksi, dan `customer_value_segment` (nilai pembelian × tingkat engagement).
-- **EDA**: distribusi, default rate per kategori, korelasi multivariat, tren bulanan, serta uji Chi-Square dan Point-Biserial.
-- **Segmentasi**: segmen nilai pelanggan (3 × 2), geografis, dan demografis.
+- **Data Cleaning**: data type conversion, logical range validation, and outlier handling with IQR capping.
+- **Feature Engineering**: `installment_income_ratio`, `monthly_installment`, `delay_category`, `credit_tier`, `age_group`, `is_employed`, `ever_delayed`, transaction date components, and `customer_value_segment` (purchase value × engagement).
+- **EDA**: distributions, default rate by category, multivariate correlation, monthly trends, plus Chi-Square and Point-Biserial tests.
+- **Segmentation**: customer value segments (3 × 2), geographic, and demographic segmentation.
 
-## Temuan Utama
+## Key Findings
 
-- **Status pekerjaan adalah penentu risiko yang kuat.** Pelanggan *Unemployed* dan *Student* gagal bayar sekitar 48–49%, jauh di atas *Self-Employed* (sekitar 26%). Uji Chi-Square signifikan (χ² = 418,81, p < 0,0001).
-- **Kapasitas finansial lebih menentukan daripada perilaku digital.** Rata-rata credit score pelanggan gagal bayar 392,9 berbanding 483,6 pada yang tidak gagal bayar.
-- **Lokasi dan kategori produk tidak signifikan** terhadap gagal bayar (p = 0,830 dan p = 0,168), meskipun terlihat ada selisih pada grafik.
-- **Frekuensi penggunaan aplikasi tidak memprediksi gagal bayar** (r = 0,0039).
-- **Keterlambatan 1–7 hari adalah kelompok terbesar** (3.557 pelanggan), sehingga menjadi jendela intervensi dini terbaik.
-- **Pelanggan berisiko rendah berbelanja paling besar**: rata-rata 4.775 pada *Low Risk* berbanding 3.758 pada *High Risk*.
-- `monthly_income` dan `credit_score` hampir kolinear (sekitar 0,96), sehingga pada pemodelan lanjutan sebaiknya hanya salah satunya yang dipertahankan.
+- **Employment status is a strong risk driver.** *Unemployed* and *Student* customers default at roughly 48–49%, far above *Self-Employed* customers (roughly 26%). The Chi-Square test is significant (χ² = 418.81, p < 0.0001).
+- **Financial capacity matters more than digital behavior.** The mean credit score of defaulters is 392.9, versus 483.6 for non-defaulters.
+- **Location and product category are not significant** drivers of default (p = 0.830 and p = 0.168), even though the charts show a visible spread.
+- **App usage frequency does not predict default** (r = 0.0039).
+- **A 1–7 day delay is the largest group** (3,557 customers), making it the best window for early intervention.
+- **Low-risk customers spend the most**: a mean purchase of 4,775 for *Low Risk* versus 3,758 for *High Risk*.
+- `monthly_income` and `credit_score` are nearly collinear (about 0.96), so only one should be kept in later predictive modeling.
 
-### Hasil Uji Hipotesis (α = 0,05)
+### Hypothesis Test Results (α = 0.05)
 
-| # | Hipotesis | Uji | Hasil |
-|---|-----------|-----|-------|
-| H1 | Status pekerjaan berhubungan dengan gagal bayar | Chi-Square | χ² = 18,11, p = 0,000021 → **H0 ditolak** |
-| H2 | Credit score berbeda antara yang gagal bayar dan tidak | Mann-Whitney U | p < 0,000001 → **H0 ditolak** |
-| H3 | Tenor cicilan memengaruhi keterlambatan pembayaran | Mann-Whitney U | p = 0,1239 → **H0 gagal ditolak** |
-| H4 | Nilai belanja berbeda antarsegmen risiko | Kruskal-Wallis | H = 990,01, p < 0,000001 → **H0 ditolak** |
+| # | Hypothesis | Test | Result |
+|---|-----------|------|--------|
+| H1 | Employment status is associated with default | Chi-Square | χ² = 18.11, p = 0.000021 → **Reject H0** |
+| H2 | Credit score differs between defaulters and non-defaulters | Mann-Whitney U | p < 0.000001 → **Reject H0** |
+| H3 | Installment tenor affects repayment delay | Mann-Whitney U | p = 0.1239 → **Fail to reject H0** |
+| H4 | Spending differs across risk segments | Kruskal-Wallis | H = 990.01, p < 0.000001 → **Reject H0** |
 
-## Visualisasi
+## Visualizations
 
-![Default rate per kategori](images/default_rate_by_category.png)
-![Delay category dan status gagal bayar](images/delay_category_default.png)
-![Matriks korelasi](images/correlation_heatmap.png)
+![Default rate by category](images/default_rate_by_category.png)
+![Delay category and default status](images/delay_category_default.png)
+![Correlation matrix](images/correlation_heatmap.png)
 
-### Dashboard Power BI
+### Power BI Dashboard
 
-![Dashboard Power BI](images/powerbi_dashboard.png)
+![Power BI dashboard](images/powerbi_dashboard.png)
 
-Dashboard memuat KPI utama (total pengguna, default rate, rata-rata risk score dan credit score), tren gagal bayar bulanan, distribusi per jenis pekerjaan dan segmen, serta filter interaktif untuk lokasi, kelompok usia, jenis pekerjaan, dan segmen pelanggan.
+The dashboard includes key KPIs (total users, default rate, average risk score and credit score), the monthly default trend, default distribution by employment type and segment, and interactive filters for location, age group, employment type, and customer segment.
 
-## Rekomendasi Bisnis
+## Business Recommendations
 
-| # | Rekomendasi | Ringkasan |
-|---|-------------|-----------|
-| 1 | **Limit kredit dinamis per segmen risiko** | *High Risk* (73,17% pelanggan): batasi limit hingga 50% dari limit standar dan wajibkan verifikasi pendapatan. *Medium Risk* (21,27%): limit standar dengan pemantauan berkala. *Low Risk* (5,57%): layak mendapat kenaikan limit dan program loyalitas. |
-| 2 | **Peringatan dini berbasis hari keterlambatan** | Pengingat otomatis pada hari ke-3, pemberitahuan dampak credit score pada hari ke-7, dan peringatan keras pada hari ke-14. |
-| 3 | **Perkuat onboarding *Student* dan *Unemployed*** | Wajibkan bukti pendapatan alternatif dan penjamin bila pendapatan tidak memenuhi ambang minimum. |
-| 4 | **Re-engagement dan alokasi promosi** | Alihkan promosi *High Risk* ke literasi keuangan dan pengingat pembayaran; arahkan *cashback* ke pelanggan *Low/Medium Risk* yang nilai belanjanya lebih tinggi. |
+| # | Recommendation | Summary |
+|---|----------------|---------|
+| 1 | **Dynamic credit limits by risk segment** | *High Risk* (73.17% of customers): cap limits at 50% of the standard limit and require income verification. *Medium Risk* (21.27%): standard limits with periodic monitoring. *Low Risk* (5.57%): eligible for limit upgrades and loyalty programs. |
+| 2 | **Early-warning system based on delay days** | Automated reminders on day 3, a credit-score-impact notice on day 7, and a hard warning on day 14. |
+| 3 | **Strengthen onboarding for *Student* and *Unemployed* customers** | Require proof of alternative income and a guarantor when income does not meet the minimum threshold. |
+| 4 | **Re-engagement and promotion allocation** | Shift *High Risk* promotions toward financial literacy and payment reminders; direct cashback to *Low/Medium Risk* customers, who spend more. |
 
-## Keterbatasan dan Langkah Lanjutan
+## Limitations and Next Steps
 
-- Analisis bersifat asosiatif dan tidak menunjukkan hubungan sebab-akibat.
-- Fitur `total_debt_estimate` memiliki sebaran yang hampir identik dengan `purchase_amount`, sehingga tidak ditafsirkan sebagai eksposur utang yang independen.
-- Proporsi *High Risk* yang besar (73,17%) menunjukkan bahwa ambang segmentasi bawaan dataset perlu dikalibrasi ulang sebelum dipakai untuk kebijakan limit.
-- **Langkah lanjutan:** membangun model prediktif skor risiko per pelanggan (misalnya Logistic Regression atau Gradient Boosting) dengan evaluasi AUC dan Precision-Recall.
+- The analysis is associative and does not establish causation.
+- `total_debt_estimate` has a distribution nearly identical to `purchase_amount`, so it is not interpreted as an independent measure of debt exposure.
+- The very large *High Risk* share (73.17%) suggests the dataset's built-in segmentation thresholds should be recalibrated before being used for limit policy.
+- **Next step:** build a predictive model of customer-level risk scores (for example Logistic Regression or Gradient Boosting), evaluated with AUC and Precision-Recall.
 
-## Struktur Repository
+## Repository Structure
 
 ```
 bnpl-credit-risk-analytics/
 ├── README.md
+├── README.id.md                   # Indonesian version
 ├── requirements.txt
 ├── .gitignore
 ├── data/
-│   └── README.md                  # tautan dan instruksi unduh dataset
+│   └── README.md                  # dataset link and download instructions
 ├── notebooks/
-│   └── BNPL_Analysis.ipynb        # analisis lengkap (Python)
+│   └── BNPL_Analysis.ipynb        # full analysis (Python)
 ├── presentation/
-│   └── BNPL_Portofolio.pdf        # deck presentasi
-└── images/                        # grafik untuk README
+│   └── BNPL_Portofolio.pdf        # presentation deck
+└── images/                        # charts used in this README
 ```
 
-## Cara Menjalankan
+## How to Run
 
-1. Klon repository:
+1. Clone the repository:
    ```bash
-   git clone https://github.com/rizkimughni/bnpl-credit-risk-analytics
+   git clone https://github.com/rizkimughni/bnpl-credit-risk-analytics.git
    cd bnpl-credit-risk-analytics
    ```
-2. Pasang dependensi:
+2. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-3. Unduh dataset dari Kaggle (lihat `data/README.md`) dan letakkan di folder `data/`.
-4. Jalankan notebook:
+3. Download the dataset from Kaggle (see `data/README.md`) and place it in the `data/` folder.
+4. Run the notebook:
    ```bash
    jupyter notebook notebooks/BNPL_Analysis.ipynb
    ```
 
-## Kontak
+## Contact
 
-** Mochamad Rizki Abdul Mughni **
+**Mochamad Rizki Abdul Mughni**  
 LinkedIn: [id.linkedin.com/in/mrizkiam](https://id.linkedin.com/in/mrizkiam)
