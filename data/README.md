@@ -1,18 +1,18 @@
 # Dataset
 
-**Sumber:** Kaggle, *Buy Now, Pay Later (BNPL) Fintech ML Dataset*
-**Tautan:** [https://www.kaggle.com/datasets/shree0910/buy-now-and-pay-later-fintech-ml-dataset](https://www.kaggle.com/datasets/shree0910/buy-now-and-pay-later-fintech-ml-dataset)
+**Source:** Kaggle, *Buy Now, Pay Later (BNPL) Fintech ML Dataset*
+**Link:** [https://www.kaggle.com/datasets/shree0910/buy-now-and-pay-later-fintech-ml-dataset](https://www.kaggle.com/datasets/shree0910/buy-now-and-pay-later-fintech-ml-dataset)
 
-## Cara Menggunakan
+## How to Use
 
-1. Unduh dataset dari tautan di atas.
-2. Letakkan file `Buy_Now_Pay_Later_BNPL_CreditRisk_Dataset.csv` di folder ini (`data/`).
-3. Jalankan notebook `notebooks/BNPL_Analysis.ipynb`.
+1. Download the dataset from the link above.
+2. Place the file `Buy_Now_Pay_Later_BNPL_CreditRisk_Dataset.csv` in this folder (`data/`).
+3. Run the notebook `notebooks/BNPL_Analysis.ipynb`.
 
-## Deskripsi Singkat
+## Brief Description
 
-- 10.345 baris dan 17 kolom (32 kolom setelah feature engineering)
-- Periode 2023–2024, 6 negara
-- Target: `default_flag` (1 = gagal bayar, 0 = membayar tepat waktu)
+- 10,345 rows and 17 columns (32 columns after feature engineering)
+- Period: 2023–2024, 6 countries
+- Target: `default_flag` (1 = defaulted, 0 = paid on time)
 
-File hasil ekspor (`bnpl_clean_featured.csv` dan `.parquet`) dibuat otomatis oleh notebook dan tidak disimpan di repository.
+The exported files (`bnpl_clean_featured.csv` and `.parquet`) are created automatically by the notebook and are not stored in the repository.
