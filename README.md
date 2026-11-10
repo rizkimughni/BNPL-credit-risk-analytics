@@ -101,7 +101,7 @@ bnpl-credit-risk-analytics/
 
 1. Klon repository:
    ```bash
-   git clone https://github.com/rizkimughni/BNPL-credit-risk-analytics
+   git clone https://github.com/rizkimughni/bnpl-credit-risk-analytics
    cd bnpl-credit-risk-analytics
    ```
 2. Pasang dependensi:
@@ -116,5 +116,5 @@ bnpl-credit-risk-analytics/
 
 ## Kontak
 
-**Mochamad Rizki Abdul Mughni**
+** Mochamad Rizki Abdul Mughni **
 LinkedIn: [id.linkedin.com/in/mrizkiam](https://id.linkedin.com/in/mrizkiam)
